@@ -1,7 +1,22 @@
-import './mealItem.scss';
+import { useContext } from 'react';
+
 import MealItemForm from './MealItemForm';
+import CartContext from '../../../store/cart-context';
+
+import './mealItem.scss';
 
 const MealItem = ({meal: {id, name, description, price}}) => {
+    const cartContext = useContext(CartContext);
+    
+    const addToCartHandler = (amount) => {
+        cartContext.addItem({
+            id,
+            name,
+            amount,
+            price
+        })
+    }
+
     return (
         <li className='meal'>
             <div>
@@ -11,7 +26,9 @@ const MealItem = ({meal: {id, name, description, price}}) => {
             </div>
             
             <div>
-                <MealItemForm id={id} />
+                <MealItemForm 
+                    id={id}
+                    onAddToCart={addToCartHandler} />
             </div>
         </li>
     )

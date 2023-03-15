@@ -1,9 +1,10 @@
-import './header.scss';
 import sushiImage from '../../assets/sushi.jpg'
 import HeaderCartButton from './HeaderCartButton';
 
+import './header.scss';
+
 const Header = ({ onShowCart }) => {
-    
+
     return (
         <>
             <header className='header'>
