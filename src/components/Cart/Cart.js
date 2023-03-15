@@ -1,18 +1,18 @@
 import Modal from '../UI/Modal';
 import './cart.scss';
 
-const Cart = () => {
+const Cart = ({ onHideCart }) => {
     const cartItems = [{name: 'sushi'}].map(el => {
         const { id, name, amount, price } = el;
 
     return (
-        <li>{name}</li>
+        <li key={id}>{name}</li>
     )
     
     })
 
     return (
-        <Modal>
+        <Modal onHideCartForBackdrop={onHideCart}>
             <ul className='cart-items'>
                 {cartItems}
             </ul>
@@ -22,7 +22,9 @@ const Cart = () => {
                 <span>$99</span>
             </div>
             <div className='actions'>
-                <button className='button--alt'>Close</button>
+                <button 
+                    onClick={() => onHideCart()}
+                    className='button--alt'>Close</button>
                 <button className='button'>Confirm</button>
             </div>
         </Modal>
