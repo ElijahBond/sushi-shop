@@ -1,14 +1,33 @@
+import { useContext } from 'react';
+
 import Modal from '../UI/Modal';
+import CartContext from '../../store/cart-context';
+
 import './cart.scss';
+import CartItem from './CartItem';
 
 const Cart = ({ onHideCart }) => {
-    const cartItems = [{name: 'sushi'}].map(el => {
-        const { id, name, amount, price } = el;
+    const cartContext = useContext(CartContext);
 
+    const totalAmount = cartContext.totalAmount.toFixed(2);
+    const hasItems = cartContext.items.length > 0;
+
+    const removeCartItemHandler = (id) => {
+        cartContext.removeItem(id)
+    }
+
+    const addCartItemHandler = (item) => {
+        cartContext.addItem({...item, amount: 1})
+    }
+
+    const cartItems = cartContext.items.map(el => {
     return (
-        <li key={id}>{name}</li>
-    )
-    
+        <CartItem 
+            key={el.id}
+            el={el}
+            onAdd={addCartItemHandler.bind(null, el)}
+            onRemove={removeCartItemHandler.bind(null, el.id)}
+        />)
     })
 
     return (
@@ -19,13 +38,13 @@ const Cart = ({ onHideCart }) => {
 
             <div className='total'>
                 <span>Total</span>
-                <span>$99</span>
+                <span>${+totalAmount}</span>
             </div>
             <div className='actions'>
                 <button 
                     onClick={() => onHideCart()}
                     className='button--alt'>Close</button>
-                <button className='button'>Confirm</button>
+                {hasItems && <button className='button'>Confirm</button>}
             </div>
         </Modal>
     )
