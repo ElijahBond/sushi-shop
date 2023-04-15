@@ -1,3 +1,5 @@
-In the project directory, you can run:
+--------------THIS IS STUDYING PROJECT-------------- (I created this project with help teacher)
 
-### `npm start`
+Deploy vesrion: https://sushi-shop-rust.vercel.app/
+
+This is sushi show on redux
